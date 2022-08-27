@@ -1,0 +1,120 @@
+<template>
+  <div class="all">
+    <textarea v-model="text"></textarea>
+    <img v-if="image" :src="imagePreview" alt="Image du post" />
+    <input class="file" type="file" name="image" @change="setFile" />
+    <button class="button" aria-label="Valider la modification de ma publication" @click="modifyPost">Modifier ma
+      publication !</button>
+  </div>
+  <div>
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    <router-link :to="`/feed/:userId`" class="button-lien" aria-label="Retour au fil d'actualité">
+      Annuler</router-link>
+  </div>
+  <FooterComponent />
+
+</template>
+ 
+<script>
+import {API_URL} from "./../../common/utils"
+import FooterComponent from '../components/FooterComponent.vue'
+
+export default {
+  name: 'EditPostPage',
+
+  components: {
+    FooterComponent,
+  },
+
+  data(){
+    return{
+      text:"",
+      image:"",
+      imagePreview:"",
+    }
+  },
+async mounted() {
+  const token = localStorage.getItem("token")
+  const idPost = this.$route.params.idPost
+  const publication = await this.axios.get(`${API_URL}/post/${idPost}`, {
+    headers: {
+      "Authorization": "Bearer " + token
+    }
+  })
+  this.text = publication['data'].postText
+  this.imagePreview = publication['data'].imageUrl
+},
+
+  methods : {
+    modifyPost() {
+      const idPost = this.$route.params.idPost
+      const token = localStorage.getItem("token")
+      const userId = localStorage.getItem("userId")
+      let formData = new FormData();
+      formData.append("image", this.image);
+      formData.append("postText", this.text);
+      formData.append('userId', userId);
+      this.axios.put(`${API_URL}/post/${idPost}`, formData, {
+          headers: { Authorization: "Bearer " + token },
+        })
+        .then(() => {
+          this.$router.push({path: "/feed/" + userId})
+        })
+        .catch(error => (error));
+    },
+    setFile(event){
+      if (event.target.files){
+        this.image = event.target.files[0]
+        this.imagePreview = URL.createObjectURL(this.image)
+      }
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+  .all{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    textarea{
+      margin: 100px;
+      width:50%;
+      height: 100px;
+      font-size: 15px;
+      font-family: 'Lato', Helvetica, Arial, sans-serif;
+    }
+
+    img{
+      margin: 15px;
+      width:50%;
+      height:50%;
+    }
+    .button{
+      width:15%;
+      border: 0.5px solid;
+      border-radius: 10px;
+      border-color: #bcbdc4;
+      background-color: white;
+      color: #fd2d01;
+      padding: 8px;
+      margin: 50px;
+    }
+
+    :hover.button{
+      background-color: #4e5166; 
+      color: white;
+    }
+  }
+
+  @media only screen and (max-width: 768px){
+    div.all{
+      .button{
+      width:40%;
+    }
+    }
+    
+  }
+  
+</style>
