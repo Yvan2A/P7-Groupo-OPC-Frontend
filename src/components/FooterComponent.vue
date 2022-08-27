@@ -1,7 +1,7 @@
 <template>
 <div class="footer">
   <p>Groupomania © 2022</p>
-  <a class="contact" href="mail to">Nous contacter</a>
+  <a class="contact" href="mailto:groupomania@gmail.com">Nous contacter</a>
 </div>  
 </template>
 

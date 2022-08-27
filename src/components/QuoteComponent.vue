@@ -2,7 +2,7 @@
 <template>
     <div>
         <p class="quote">
-            Apprenez à connaître vos collègues dans un <br/>cadre plus informel grace à notre <br/> nouveau réseau socialGroupomania
+            Apprenez à connaître vos collègues dans un <br/>cadre plus informel grace à notre <br/> nouveau réseau social <strong>Groupomania</strong>
         </p>
     </div> 
 </template>
