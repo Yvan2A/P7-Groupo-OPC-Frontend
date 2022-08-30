@@ -29,21 +29,15 @@ const router = createRouter({
 });
 
 // Sécurite d'acces au pages
-router.beforeEach((to, from, next) =>
-{
-  // console.log('pas init');
-  console.log(to);
-  console.log(from);
-  const  token  = localStorage.getItem('token');
-  console.log(token);
-  if ((to.path == '/homeAuth') && token) {
-    next('/feed/:userId');
+router.beforeEach((to, from, next) => {
+  const publicPages = ['/'];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem('userId');
+  if (authRequired && !loggedIn) {
+    next('/');
+  } else {
+    next();
   }
-  if ((to.path == '/feed/:userId') && !token) {
-    next('/homeAuth');
-  }
-  
-  next();
-  
 });
+
 export default router;
