@@ -9,8 +9,9 @@
                         aria-hidden="true"></i></button>
             </div>
             <ProfilPostComponent :user="publication.user[0]" />
-            <p class="postText">{{ publication.postText }}</p>
+            <span>posté {{ moment(publication.date).locale("fr").fromNow() }}</span>
 
+            <p class="postText">{{ publication.postText }}</p>
 
             <img v-if="publication.imageUrl != ''" :src="publication.imageUrl" alt="Image du post" />
             <LikeComponent :likeCount="publication.likes" :isLiked="isLiked" :postId="publication._id" />
@@ -19,9 +20,12 @@
 </template>
 
 <script>
+let moment = require("moment");
+
 import { API_URL } from "./../../common/utils"
 import ProfilPostComponent from './ProfilPostComponent.vue'
 import LikeComponent from "./LikeComponent.vue"
+
 export default {
     name: 'PostComponent',
     components: {
@@ -29,7 +33,14 @@ export default {
         LikeComponent,
     },
 
+     data() {
+    return {
+      moment: moment,
+    };
+    },
+
     props: ['publication', 'isAdmin'],
+    
     computed: {
         isLiked() {
             return this.publication.usersLiked.includes(this.getConnectedUserId)
