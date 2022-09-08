@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="container">
     <button type="button" aria-label="Me déconnecter" @click="Logout()" class="déconnexion button">Me
       déconnecter</button>
@@ -10,6 +11,7 @@
     </div>
   </div>
   <FooterComponent />
+  </div>
 </template>
 
 <script>

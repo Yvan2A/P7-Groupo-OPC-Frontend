@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="all">
     <textarea v-model="text"></textarea>
     <img v-if="image" :src="imagePreview" alt="Image du post" />
@@ -12,7 +13,7 @@
       Annuler</router-link>
   </div>
   <FooterComponent />
-
+</div>
 </template>
  
 <script>

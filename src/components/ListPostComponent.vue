@@ -1,5 +1,7 @@
-<template>    
+<template> 
+<div>  
    <PostComponent :isAdmin='isAdmin' v-for="(post, key) in this.publications" :key="key" :publication="post"/>
+</div> 
 </template>
 
 <script>

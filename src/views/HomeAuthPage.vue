@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="quot-form">
     <div class="quote">
       <QuoteComponent />
@@ -14,6 +15,7 @@
     </div>
   </div>
   <FooterComponent />
+  </div>
 </template>
 
 <script>
