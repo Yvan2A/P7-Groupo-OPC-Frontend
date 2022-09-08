@@ -133,4 +133,8 @@ npm install
 ./node_modules/.bin/eslint --init
 npm run serve
 ```
+Il faudra initialiser eslint :
+=> Sélectionner "To check syntax only" / "JavaScript modules" / "Vue.js" / "No TypeScript" / "Node" / "JSON" and "Yes"
+
+npm run serve
 L'interface front-end sera alors disponible et exécutée sur le port 8080 par défaut.
