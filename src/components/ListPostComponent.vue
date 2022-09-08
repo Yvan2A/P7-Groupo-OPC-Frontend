@@ -4,7 +4,6 @@
 
 <script>
 
-import {API_URL} from "./../../common/utils"
 import PostComponent from "./PostComponent.vue"
 export default {
   name: 'ListPostComponent',
@@ -20,7 +19,7 @@ export default {
   async created() {
         const token = localStorage.getItem("token")
         const userId =localStorage.getItem("userId")
-        const user = await this.axios.get(`${API_URL}/user/${userId}`, {
+    const user = await this.axios.get(`http://localhost:3000/api/user/${userId}`, {
             headers: {
                 "Authorization": "Bearer " + token
              }
@@ -37,7 +36,7 @@ export default {
 
       try {
         const token = localStorage.getItem("token")
-        const getPosts = await this.axios.get(`${API_URL}/post/`, {
+        const getPosts = await this.axios.get(`http://localhost:3000/api/post/`, {
         headers: {
           Authorization:"Bearer " + token
         }
