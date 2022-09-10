@@ -71,11 +71,14 @@ export default {
         deletePost() {
             const token = localStorage.getItem("token")
             const id = this.publication._id
+            const userId = localStorage.getItem("userId")
             this.axios.delete(`${API_URL}/post/${id}`, {
                 headers: {
                     'Authorization': 'Bearer ' + token
-                }
+                },
+                data : {userId}
             })
+            
                 .then(() => alert.success('Post supprimé !'))
                 .catch((error) => console.log(error.response));
             this.$router.go()
@@ -93,7 +96,7 @@ export default {
 
                 await recuperation.json()
                 formData.append('image', this.image);
-                formData.append('postText', this.text)
+                formData.append('postText', this.text);
 
             } catch (e) {
                 console.log(e)
